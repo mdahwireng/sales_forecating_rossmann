@@ -6,7 +6,7 @@ def get_csv_data(path, version):
     print('Reading data from dvc source....')
     data_url = dvc.api.get_url(path=path, rev=rev)
     df = pd.read_csv(data_url)
-    print('Reading completed, data saved as {}'.format(path))
+    print('Reading completed, data returned')
     return df
 
 def save_csv(df, path):
