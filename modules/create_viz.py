@@ -25,3 +25,14 @@ def plot_purchase_behv(bf_df, dur_df, aft_df, title, save_path):
     path = img_path + save_path
     fig.savefig(path)
     logging.info('Plot saved as {} in img directory'.format(save_path))
+
+def outliers_plot(df, labels, typeOfPlot=0):
+    if typeOfPlot in [0, 2]:
+        plt.figure(figsize=(7,7))
+        sns.scatterplot(data=df, x=labels['x'], y=labels['y'])
+        plt.show()
+    if typeOfPlot in [1, 2]:    
+        plt.figure(figsize=(7,7))
+        sns.set(style="whitegrid")
+        sns.boxenplot(data=df,scale="linear",x=labels['x'],y=labels['y'], color="orange")
+        plt.show()
