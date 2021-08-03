@@ -51,7 +51,7 @@ class GetDfForPreprocessing:
         print(col_info, num_rows, num_na_cols, na_cols_num_na)
         
         
-    def drop_cols_abv_na_trshld(self, threshold:float, output=False) -> pd.DataFrame:
+    def drop_cols_abv_na_trshld(self, threshold:float, exclude=[], output=False) -> pd.DataFrame:
         """
         this function will drop columns with missing values above a specified threshold
 
@@ -81,6 +81,10 @@ class GetDfForPreprocessing:
                 above_treshold.append(col)
                 
         print('\nColumns to be dropped :', above_treshold)
+        print('\nThe column(s) to be excluded is/are {}'.format([exclude]))
+        if len(exclude)>0:
+            for col in exclude:
+                above_treshold.remove(col)
                 
         print('\nDropping columns with missing values above the threshold ...') 
         df.drop(above_treshold, axis=1, inplace=True)
@@ -98,13 +102,16 @@ class GetDfForPreprocessing:
         if output:
             return df
 
-    def fill_missing(self, exclude='CompetitionOpenSinceMonth', method={'num':'mean'}):
+    def fill_missing(self, exclude=['CompetitionOpenSinceMonth'], method={'num':'mean'}):
         df = self.df.copy()
         na_col_val_dict = self.na_col_val_dict
         na_cols = self.na_cols
         print('\nThe colums with missing values to be filled are {}'.format(na_cols))
-        print('\nThe column(s) to be excluded is/are {}'.format([exclude]))
-        na_cols.remove(exclude)
+        print('\nThe column(s) to be excluded is/are {}'.format(exclude))
+        
+        if len(exclude)>0:
+            for col in exclude:
+                na_cols.remove(col)
 
         for col in na_cols:
             print('\nFilling missing values in {}'.format(col))
