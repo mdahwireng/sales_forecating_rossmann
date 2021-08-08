@@ -97,4 +97,5 @@ class DateExtract():
         self.get_month_begining()
         self.get_month_mid()
         self.get_month_end()
-        self.return_df()
+        data_df = self.return_df()
+        return data_df
