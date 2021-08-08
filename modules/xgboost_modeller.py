@@ -16,7 +16,7 @@ class XgModeller():
         testing_params = {
                         'colsample_bytree':[0.4,0.6,0.8], 'gamma':[0,0.03,0.1,0.3], 
                         'min_child_weight':[1.5,6,10],'learning_rate':[0.1,0.07],
-                        'max_depth':[3,5], 'n_estimators':[10], 'subsample':[0.6,0.95], 
+                        'max_depth':[3,5], 'n_estimators':[15], 'subsample':[0.6,0.95], 
                         'reg_alpha':[1e-5, 1e-2,  0.75],'reg_lambda':[1e-5, 1e-2, 0.45]
                         }
 
@@ -27,9 +27,9 @@ class XgModeller():
     def gridsearch_model(self, X, Y, output=False):
         testing_params = self.testing_params
         base_model = self.model
-        logging.info("Randomized+SearchCV in process, 'n_estimators'=100 ...")
+        logging.info("Randomized+SearchCV in process, 'n_estimators'=15 ...")
         rand_search = RandomizedSearchCV(estimator=base_model, param_distributions=testing_params, 
-                                        cv=5, random_state=42, n_iter=10, 
+                                        cv=5, n_iter=10, 
                                         return_train_score=True, n_jobs=1, verbose=2)
         rand_search.fit(X=X, y=Y)
         logging.info('RandomizedSearchCV in completed')
