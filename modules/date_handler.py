@@ -31,6 +31,13 @@ class DateExtract():
         self.df = df
         logging.info('Retrieval of day completed')
 
+    def get_week_day(self):
+        logging.info('Retrieving day of week from date...')
+        df = self.df.copy()
+        df['WeekDay'] = df["Date"].dt.weekday + 1
+        self.df = df
+        logging.info('Retrieval of day of week completed')
+
     def get_week_month(self):
         logging.info('Retrieving week of the month from date...')
         df = self.df.copy()
@@ -52,13 +59,13 @@ class DateExtract():
     def get_weekends(self):
         logging.info('Retrieving weekends from date...')
         df = self.df.copy()
-        df['IsWeekend'] = df["Day"].apply(lambda x: 1 if x>4 else 0)
+        df['IsWeekend'] = df["WeekDay"].apply(lambda x: 1 if x>5 else 0)
         logging.info('Retrieval of weekends from date completed')
 
     def get_weekdays(self):
         logging.info('Retrieving weekdays from date...')
         df = self.df.copy()
-        df['IsWeekday'] = df["Day"].apply(lambda x: 1 if x<5 else 0)
+        df['IsWeekday'] = df["Day"].apply(lambda x: 1 if x<6 else 0)
         logging.info('Retrieval of weekdays from date completed')
 
     def get_month_begining(self):
@@ -89,6 +96,7 @@ class DateExtract():
     def extract_all(self):
         self.get_year()
         self.get_month()
+        self.get_week_day()
         self.get_day()
         self.get_month()
         self.get_season()
